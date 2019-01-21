@@ -1,0 +1,39 @@
+{
+  "name": "learnfront-backend",
+  "version": "1.0.0",
+  "description": "Backend service for the learnfront application",
+  "main": "index.js",
+  "scripts": {
+    "start": "ts-node src/server.ts",
+    "start:dev": "nodemon",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mikhail-hatsilau/learnfront-backend.git"
+  },
+  "keywords": [
+    "Learn",
+    "Frontend"
+  ],
+  "author": "Mikhail Hatsilau",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mikhail-hatsilau/learnfront-backend/issues"
+  },
+  "homepage": "https://github.com/mikhail-hatsilau/learnfront-backend#readme",
+  "devDependencies": {
+    "@types/body-parser": "^1.17.0",
+    "@types/express": "^4.16.0",
+    "@types/winston": "^2.4.4",
+    "nodemon": "^1.18.9",
+    "ts-node": "^7.0.1",
+    "typescript": "^3.2.4"
+  },
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4",
+    "logform": "^2.1.0",
+    "winston": "^3.1.0"
+  }
+}

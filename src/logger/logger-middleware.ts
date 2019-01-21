@@ -1,6 +1,6 @@
-import { NextFunction, Request, Response} from 'express';
+import { NextFunction, Request, Response } from 'express';
 import { Logger } from './logger';
-import { ServerError } from "../models/server-error";
+import { ServerError } from '../models/server-error';
 
 const buildInfoMessage = (req: Request) => {
     const {
@@ -9,7 +9,9 @@ const buildInfoMessage = (req: Request) => {
         url,
         method
     } = req;
-    return `${protocol.toUpperCase()} ${url} ${method.toUpperCase()}, Body: ${JSON.stringify(body)}`
+    const uppercaseProtocol = protocol.toUpperCase();
+    const uppercaseMethod = method.toUpperCase();
+    return `${uppercaseProtocol} ${url} ${uppercaseMethod}, Body: ${JSON.stringify(body)}`;
 };
 
 const buildErrorMessage = (err: ServerError) => {

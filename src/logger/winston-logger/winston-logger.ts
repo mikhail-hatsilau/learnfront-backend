@@ -27,20 +27,6 @@ class WinstonLogger implements Logger {
         errorFileName = DEFAULT_ERROR_FILENAME,
         logFileName = DEFAULT_LOG_FILENAME
     }: WinstonLoggerParams) {
-        const transportsToUse = [
-            ...(NODE_ENV !== 'test' ? [
-                new transports.File({ filename: errorFileName, level: LEVELS.ERROR }),
-                new transports.File({ filename: logFileName })
-            ] : []),
-            ...(NODE_ENV !== 'production' ? [
-                new transports.Console({
-                    format: format.combine(
-                        format.colorize(),
-                        format.printf(print)
-                    ),
-                })
-            ] : [])
-        ];
         this.logger = createLogger({
             level: LEVELS.DEBUG,
             format: format.combine(
@@ -48,8 +34,20 @@ class WinstonLogger implements Logger {
                 format.timestamp(),
                 format.printf(print)
             ),
-            transports: transportsToUse
+            transports: [
+                new transports.File({ filename: errorFileName, level: LEVELS.ERROR }),
+                new transports.File({ filename: logFileName })
+            ]
         });
+
+        if (NODE_ENV === 'development') {
+            this.logger.add(new transports.Console({
+                format: format.combine(
+                    format.colorize(),
+                    format.printf(print)
+                ),
+            }));
+        }
     }
 
     debug(message: string): void {

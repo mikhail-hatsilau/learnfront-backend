@@ -9,7 +9,7 @@ jobs:
       script: "npm run lint"
     - stage: test
       env:
-        NODE_ENV=test
+        - NODE_ENV=test
       script: "npm test"
     - stage: build and deploy
       before_script:

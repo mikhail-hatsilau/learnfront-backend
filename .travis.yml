@@ -7,3 +7,9 @@ jobs:
       script: "npm run lint"
     - stage: test
       script: "npm test"
+    - stage: build
+      before_script:
+        - docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD" registry.heroku.com
+      script:
+        - docker build -t registry.heroku.com/learnfront/web .
+        - docker push registry.heroku.com/learnfront/web

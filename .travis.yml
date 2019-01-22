@@ -5,19 +5,15 @@ services:
   - docker
 jobs:
   include:
-#    - stage: lint
-#      script: "npm run lint"
-#    - stage: test
-#      script: "npm test"
-    - stage: build
+    - stage: lint
+      script: "npm run lint"
+    - stage: test
+      env:
+        NODE_ENV=test
+      script: "npm test"
+    - stage: build and deploy
       before_script:
         - docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD" registry.heroku.com
       script:
-        - docker build -t registry.heroku.com/learnfront/web .
-        - docker push registry.heroku.com/learnfront/web
-      deploy:
-        skip_cleanup: true
-        provider: script
-        script: bash ./ci-scripts/deploy-heroku
-        on:
-          branch: develop
+        - docker build -t registry.heroku.com/$APP_NAME/web .
+        - docker push registry.heroku.com/$APP_NAME/web

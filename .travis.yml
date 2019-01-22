@@ -16,6 +16,7 @@ jobs:
         - docker build -t registry.heroku.com/learnfront/web .
         - docker push registry.heroku.com/learnfront/web
       deploy:
+        skip_cleanup: true
         provider: script
         script: bash ./ci-scripts/deploy-heroku
         on:

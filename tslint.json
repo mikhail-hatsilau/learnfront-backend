@@ -4,6 +4,8 @@
     ],
     "rules": {
         "trailing-comma": false,
-        "ter-indent": 4
+        "ter-indent": 4,
+        "ter-prefer-arrow-callback": false,
+        "import-name": false
     }
 }

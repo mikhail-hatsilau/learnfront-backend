@@ -8,7 +8,6 @@ import { Logger } from '../logger';
 import print from './formatters/print';
 import { DEFAULT_ERROR_FILENAME, DEFAULT_LOG_FILENAME } from '../../constants/logger';
 import { NODE_ENV } from '../../config/env';
-import {ConsoleTransportInstance, FileTransportInstance} from "winston/lib/winston/transports";
 
 const LEVELS = {
     INFO: 'info',
@@ -54,7 +53,7 @@ class WinstonLogger implements Logger {
     }
 
     debug(message: string): void {
-          this.logger.debug(message);
+        this.logger.debug(message);
     }
 
     error(message: string): void {

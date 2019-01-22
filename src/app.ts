@@ -4,7 +4,7 @@ import { ERROR_CODES, ERROR_MESSAGES } from './constants/errors';
 import { ServerError } from './models/server-error';
 import WinstonLogger from './logger/winston-logger/winston-logger';
 import loggerMiddlewareFactory from './logger/logger-middleware';
-import router from './routes/routes';
+import routes from './routes/routes';
 
 const app = express();
 
@@ -15,9 +15,9 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(loggerMiddleware.requestMiddleware);
 
-app.use(router);
+app.use(routes);
 
-app.use(function(req: Request, res: Response, next: NextFunction) {
+app.use(function (req: Request, res: Response, next: NextFunction) {
     next(new ServerError(
         404,
         ERROR_CODES.NOT_FOUND,
@@ -27,7 +27,7 @@ app.use(function(req: Request, res: Response, next: NextFunction) {
 
 app.use(loggerMiddleware.errorMiddleware);
 
-app.use(function(error: ServerError, req: Request, res: Response, next: NextFunction) {
+app.use(function (error: ServerError, req: Request, res: Response, next: NextFunction) {
     const {
         errorCode,
         message,
@@ -35,7 +35,7 @@ app.use(function(error: ServerError, req: Request, res: Response, next: NextFunc
     } = error;
     res.status(status);
     res.json({
-        errorCode: errorCode,
+        errorCode,
         message: message || ERROR_MESSAGES[errorCode]
     });
 });

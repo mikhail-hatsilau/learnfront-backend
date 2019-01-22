@@ -7,7 +7,7 @@ const print = (info: TransformableInfo) => {
         timestamp
     } = info;
 
-    return `${timestamp} ${level}: ${message};`
+    return `${timestamp} ${level}: ${message}`;
 };
 
 export default print;

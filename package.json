@@ -5,10 +5,11 @@
   "main": "index.js",
   "scripts": {
     "start": "ts-node src/server.ts",
-    "lint": "tslint src/**/*.ts",
+    "lint": "tslint 'src/**/*.ts'",
+    "lint:tests": "tslint 'test/**/*.ts'",
     "start:dev": "nodemon",
     "test": "NODE_ENV=test mocha -r ts-node/register test/**/*.test.ts",
-    "prepush": "npm lint && npm test"
+    "prepush": "npm run lint && npm run lint:tests && npm test"
   },
   "husky": {
     "hooks": {

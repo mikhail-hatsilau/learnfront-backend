@@ -54,7 +54,7 @@ class WinstonLogger implements Logger {
     }
 
     debug(message: string): void {
-        this.logger.debug(message);
+          this.logger.debug(message);
     }
 
     error(message: string): void {

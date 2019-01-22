@@ -3,6 +3,6 @@ import taskController from '../controllers/task-controller';
 
 const router = express.Router();
 
-router.post('/tasks/:id', taskController);
+router.get('/tasks', taskController);
 
 export default router;

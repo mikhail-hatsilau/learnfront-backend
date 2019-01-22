@@ -2,12 +2,13 @@ import {
     createLogger,
     format,
     transports,
-    Logger as LoggerInstance
+    Logger as LoggerInstance,
 } from 'winston';
 import { Logger } from '../logger';
 import print from './formatters/print';
 import { DEFAULT_ERROR_FILENAME, DEFAULT_LOG_FILENAME } from '../../constants/logger';
 import { NODE_ENV } from '../../config/env';
+import {ConsoleTransportInstance, FileTransportInstance} from "winston/lib/winston/transports";
 
 const LEVELS = {
     INFO: 'info',
@@ -27,6 +28,20 @@ class WinstonLogger implements Logger {
         errorFileName = DEFAULT_ERROR_FILENAME,
         logFileName = DEFAULT_LOG_FILENAME
     }: WinstonLoggerParams) {
+        const transportsToUse = [
+            ...(NODE_ENV !== 'test' ? [
+                new transports.File({ filename: errorFileName, level: LEVELS.ERROR }),
+                new transports.File({ filename: logFileName })
+            ] : []),
+            ...(NODE_ENV !== 'production' ? [
+                new transports.Console({
+                    format: format.combine(
+                        format.colorize(),
+                        format.printf(print)
+                    ),
+                })
+            ] : [])
+        ];
         this.logger = createLogger({
             level: LEVELS.DEBUG,
             format: format.combine(
@@ -34,20 +49,8 @@ class WinstonLogger implements Logger {
                 format.timestamp(),
                 format.printf(print)
             ),
-            transports: [
-                new transports.File({ filename: errorFileName, level: LEVELS.ERROR }),
-                new transports.File({ filename: logFileName })
-            ]
+            transports: transportsToUse
         });
-
-        if (NODE_ENV !== 'production') {
-            this.logger.add(new transports.Console({
-                format: format.combine(
-                    format.colorize(),
-                    format.printf(print)
-                ),
-            }))
-        }
     }
 
     debug(message: string): void {

@@ -1,6 +1,8 @@
 language: node_js
 node_js:
   - "node"
+services:
+  - docker
 jobs:
   include:
     - stage: lint
@@ -13,3 +15,7 @@ jobs:
       script:
         - docker build -t registry.heroku.com/learnfront/web .
         - docker push registry.heroku.com/learnfront/web
+    - stage: deploy
+      deploy:
+        provider: script
+        script: bash ./ci-scripts/deploy-heroku

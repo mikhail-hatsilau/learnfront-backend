@@ -10,7 +10,7 @@
     "lint:tests": "tslint 'test/**/*.ts'",
     "start:dev": "nodemon",
     "test": "NODE_ENV=test mocha -r ts-node/register test/**/*.test.ts",
-    "prepush": "npm run lint && npm run lint:tests && npm test"
+    "prepush": "npm run lint && npm test"
   },
   "husky": {
     "hooks": {

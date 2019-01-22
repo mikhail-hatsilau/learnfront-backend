@@ -1,6 +1,6 @@
 #!/bin/bash
 
-IMAGE_ID=$(docker inspect registry.heroku.com/learnfront/web --format={{.Id}})
+IMAGE_ID=$(docker images -q registry.heroku.com/learnfront/web)
 echo $IMAGE_ID
 curl -n -X PATCH https://api.heroku.com/apps/learnfront/formation \
   -d '{

@@ -15,7 +15,8 @@ jobs:
       script:
         - docker build -t registry.heroku.com/learnfront/web .
         - docker push registry.heroku.com/learnfront/web
-    - stage: deploy
       deploy:
         provider: script
         script: bash ./ci-scripts/deploy-heroku
+        on:
+          branch: develop
